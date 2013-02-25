@@ -5,7 +5,7 @@ class ProductTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
-  test "product attributes must not b empty" do
+  test "product attributes must not be empty" do
     product = 	Product.new
     assert product.invalid?
     assert product.errors[:title].any?
@@ -34,6 +34,12 @@ class ProductTest < ActiveSupport::TestCase
     assert product.valid?
   end
 
+  test "product title length is less than 10" do
+    product = 	Product.new(title: "aaa", description: "yyy", image_url: "zzz.jpg")
+    assert product.invalid?
+  end
+
+
   def new_product(image_url)
   	Product.new(title: "My Book Title", description: "yyy", price: 1, image_url: image_url)
   end
@@ -61,4 +67,11 @@ class ProductTest < ActiveSupport::TestCase
     assert !product.save
     assert_equal I18n.translate('activerecord.errors.messages.taken'), product.errors[:title].join('; ')
   end
+
+  test "product title has message when title length is less than 10" do
+    product = Product.new(title: 'aaa', description: "yyy", price: 1, image_url: "fried.gif")
+    assert !product.save
+    assert_equal "must be at least ten characters long", product.errors[:title].join('; ')
+  end
+
 end

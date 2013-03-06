@@ -9,6 +9,9 @@
 </head>
 <body id="store">
   <div id="banner">
+    <% if not @counter.nil? and 5 < @counter %>
+    <p>You has accessed the store controller's index action <%= pluralize(@counter, 'time') %></p>
+    <% end %>
     <%= image_tag("logo.png") %>
     <%= @page_title || "Pragmatic Bookshelf" %>
   </div>

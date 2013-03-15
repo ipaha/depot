@@ -3,9 +3,4 @@ class StoreController < ApplicationController
     @products = Product.all
     @counter = current_counter
   end
-
-  def pluralizeme
-    
-  end
-
 end

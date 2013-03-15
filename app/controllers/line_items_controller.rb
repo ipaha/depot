@@ -42,10 +42,11 @@ class LineItemsController < ApplicationController
   def create
     session[:counter] = 0
     @cart = current_cart
-    #product = Product.find(params[:product_id])
+    product = Product.find(params[:product_id])
     #@line_item = LineItem.new(params[:line_item])
     #@line_item = @cart.line_items.build(product: product)
-    @line_item = @cart.add_product(params[:product_id])
+    #@line_item = @cart.add_product(params[:product_id])
+    @line_item = @cart.add_product(product)
 
     respond_to do |format|
       if @line_item.save

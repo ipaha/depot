@@ -5,4 +5,6 @@ class LineItem < ActiveRecord::Base
   def total_price
     product.price * quantity
   end
+
+  validates :price, numericality: {less_than_or_equal_to: 1000}
 end

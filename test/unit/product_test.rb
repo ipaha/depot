@@ -74,4 +74,10 @@ class ProductTest < ActiveSupport::TestCase
     assert_equal "must be at least ten characters long", product.errors[:title].join('; ')
   end
 
+  test "product is not valid without a unique image_url" do
+    product = Product.new(title: 'My Book Title1', description: "yyy", price: 1, image_url: products(:ruby).image_url)
+    assert !product.save
+    assert_equal "has already been taken", product.errors[:image_url].join('; ')
+  end
+
 end

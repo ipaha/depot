@@ -54,7 +54,8 @@ class LineItemsController < ApplicationController
         format.html { redirect_to @line_item.cart }
         format.json { render json: @line_item, status: :created, location: @line_item }
       else
-        format.html { render action: "new" }
+        #format.html { render action: "new" }
+        format.html { redirect_to store_url, notice:  @line_item.errors.full_messages }
         format.json { render json: @line_item.errors, status: :unprocessable_entity }
       end
     end
@@ -87,7 +88,7 @@ class LineItemsController < ApplicationController
       if cart == nil
         format.html { redirect_to store_url }
       else
-        format.html { redirect_to cart }
+        format.html { redirect_to cart,  notice: 'Product was successfully deleted from the current cart' }
       end
       format.json { head :no_content }
     end

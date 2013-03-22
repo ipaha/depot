@@ -51,11 +51,14 @@ class LineItemsController < ApplicationController
     respond_to do |format|
       if @line_item.save
         #format.html { redirect_to @line_item, notice: 'Line item was successfully created.' }
-        format.html { redirect_to @line_item.cart }
+        #format.html { redirect_to @line_item.cart }
+        format.html { redirect_to store_url }
         format.json { render json: @line_item, status: :created, location: @line_item }
       else
         #format.html { render action: "new" }
-        format.html { redirect_to store_url, notice:  @line_item.errors.full_messages }
+        notice = '';
+        @line_item.errors.full_messages.each { |error| notice += error + "\n"}
+        format.html { redirect_to store_url, notice:  notice }
         format.json { render json: @line_item.errors, status: :unprocessable_entity }
       end
     end

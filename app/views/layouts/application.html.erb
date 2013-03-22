@@ -17,11 +17,15 @@
   </div>
   <div id="columns">
     <div id="side">
+      <div id="cart">
+        <%= render @cart %>
+      </div>
       <a href="http://www....">Home</a><br />
       <a href="http://www..../faq">Questions</a><br />
       <a href="http://www..../news">News</a><br />
       <a href="http://www..../contact">Contact</a><br />
-      <span style="color:#bfb;"><%= Time.now %></span>
+      <!--span style="color:#bfb;"><%= Time.now %></span-->
+      <div id="time"><%= Time.now %></div>
     </div>
     <div id="main">
       <%= yield %>

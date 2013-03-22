@@ -4,7 +4,7 @@
 <h1>Your Pragmatic Catalog</h1>
 <% @products.each do |product| %>
   <div class="entry">
-    <%= link_to image_tag(product.image_url), line_items_path(product_id: product), method: :post %>
+    <%= link_to image_tag(product.image_url), line_items_path(product_id: product), method: :post, remote: true %>
     <h3><%= product.title %></h3>
     <%= sanitize product.description %>
     <div class="price_line">
@@ -12,7 +12,7 @@
       <span class="price"><%= number_to_currency(product.price, locale: :fr) %></span>
       <span class="price"><%= number_to_currency(product.price, negative_format: "(%u%n)") %></span>
       <span class="price"><%= number_to_currency(product.price, unit: "&euro;") %></span>
-      <%= button_to 'Addt to Cart', line_items_path(product_id: product) %>
+      <%= button_to 'Addt to Cart', line_items_path(product_id: product), remote: true %>
     </div>
   </div>
 <% end %>

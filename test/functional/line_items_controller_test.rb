@@ -24,7 +24,7 @@ class LineItemsControllerTest < ActionController::TestCase
 
     #assert_redirected_to line_item_path(assigns(:line_item))
     #assert_redirected_to cart_path(assigns(:line_item).cart)
-    assert_redirected_to store_url
+    assert_redirected_to store_path
   end
 
   test "should show line_item" do
@@ -48,7 +48,19 @@ class LineItemsControllerTest < ActionController::TestCase
     end
 
     #assert_redirected_to line_items_path
-    #assert_redirected_to store_url
-    assert_redirected_to cart_path(assigns(:cart))
+    assert_redirected_to store_path
+    #assert_redirected_to cart_path(assigns(:cart))
   end
+
+  test "should create line_item via ajax" do
+    assert_difference('LineItem.count') do
+      xhr :post, :create, :product_id => products(:ruby).id
+    end
+
+    assert_response :success
+    assert_select_jquery :html, '#cart' do
+      assert_select 'tr#current_item td + td', 'Programming ruby 1.9'
+    end
+  end
+
 end

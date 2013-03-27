@@ -3,7 +3,6 @@ class LineItemsController < ApplicationController
   # GET /line_items.json
   def index
     @line_items = LineItem.all
-    @cart = current_cart
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @line_items }
@@ -14,7 +13,6 @@ class LineItemsController < ApplicationController
   # GET /line_items/1.json
   def show
     @line_item = LineItem.find(params[:id])
-    @cart = current_cart
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @line_item }
@@ -53,7 +51,7 @@ class LineItemsController < ApplicationController
         #format.html { redirect_to @line_item, notice: 'Line item was successfully created.' }
         #format.html { redirect_to @line_item.cart }
         format.html { redirect_to store_url }
-        format.js
+        format.js { @current_item = @line_item }
         format.json { render json: @line_item, status: :created, location: @line_item }
       else
         #format.html { render action: "new" }
@@ -89,13 +87,8 @@ class LineItemsController < ApplicationController
   def destroy
     @line_item = LineItem.find(params[:id])
     @line_item.destroy
-    @cart = current_cart
     respond_to do |format|
-      if @cart == nil
-        format.html { redirect_to store_url }
-      else
-        format.html { redirect_to @cart,  notice: 'Product was successfully deleted from the current cart' }
-      end
+      format.html { redirect_to store_url }
       format.js
       format.json { head :no_content }
     end

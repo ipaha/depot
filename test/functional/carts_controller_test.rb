@@ -40,9 +40,9 @@ class CartsControllerTest < ActionController::TestCase
   end
 
   test "should destroy cart" do
-    #assert_difference('Cart.count', -1) do
+    assert_difference('Cart.count', -1) do
     #create cart again in current_cart so
-    assert_difference('Cart.count', 0) do
+    #assert_difference('Cart.count', 0) do
       delete :destroy, id: @cart
     end
 
